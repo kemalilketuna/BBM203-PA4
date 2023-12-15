@@ -2,22 +2,19 @@ import zipfile
 
 # List of files to be zipped
 files = [
-    "ApplicationLayerPacket.cpp",
-    "ApplicationLayerPacket.h",
-    "Client.cpp",
-    "Client.h",
-    "Log.cpp",
-    "Log.h",
-    "Network.cpp",
-    "Network.h",
-    "NetworkLayerPacket.cpp",
-    "NetworkLayerPacket.h",
-    "Packet.cpp",
-    "Packet.h",
-    "PhysicalLayerPacket.cpp",
-    "PhysicalLayerPacket.h",
-    "TransportLayerPacket.cpp",
-    "TransportLayerPacket.h"
+    "KDT_Node.h",
+    "KD_Tree.cpp",
+    "KD_Tree.h",
+    "kNN.cpp",
+    "kNN.h",
+    "kNN_Data.h",
+    "kNN_DAT_Parser.h",
+    "Sector.cpp",
+    "Sector.h",
+    "SpaceSectorBST.cpp",
+    "SpaceSectorBST.h",
+    "SpaceSectorLLRBT.cpp",
+    "SpaceSectorLLRBT.h"    
 ]
 
 # Create a new zip file (or overwrite if it exists)
