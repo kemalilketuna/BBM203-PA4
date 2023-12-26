@@ -5,9 +5,9 @@ Sector::Sector(int x, int y, int z) : x(x), y(y), z(z), left(nullptr), right(nul
         //floor of the distance
         int floor_distance = floor(distance_from_earth);
         //sector code
-        std::string x_code = if (x < 0) ? "L" : (x > 0) ? "R" : "S";
-        std::string y_code = if (y < 0) ? "D" : (y > 0) ? "U" : "S";
-        std::string z_code = if (z < 0) ? "B" : (z > 0) ? "F" : "S";
+        std::string x_code = (x < 0) ? "L" : ((x > 0) ? "R" : "S");
+        std::string y_code = (y < 0) ? "D" : ((y > 0) ? "U" : "S");
+        std::string z_code = (z < 0) ? "B" : ((z > 0) ? "F" : "S");
         sector_code =  std::to_string(floor_distance) + x_code + y_code + z_code;
 }
 
