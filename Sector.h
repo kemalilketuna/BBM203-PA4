@@ -23,7 +23,10 @@ public:
     Sector& operator=(const Sector& other);
     bool operator==(const Sector& other) const;
     bool operator!=(const Sector& other) const;
-    
+    bool operator<(const Sector& other) const;
+    bool operator>(const Sector& other) const;
+    bool operator<=(const Sector& other) const;
+    bool operator>=(const Sector& other) const;
 };
 
 #endif // SECTOR_H
