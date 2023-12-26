@@ -1,4 +1,5 @@
 #include "Sector.h"
+#include <cmath>
 
 Sector::Sector(int x, int y, int z) : x(x), y(y), z(z), left(nullptr), right(nullptr), parent(nullptr), color(RED) {
         distance_from_earth = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
