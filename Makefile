@@ -1,5 +1,6 @@
 CC = g++
-CFLAGS = -std=c++11 -g 
+# -Wno-c++11-extensions is to suppress the warning "extended initializer lists only available with -std=c++11 or -std=gnu++11"
+CFLAGS = -std=c++11 -g -Wno-c++11-extensions
 LDFLAGS =
 
 SOURCES = main.cpp Sector.cpp SpaceSectorBST.cpp SpaceSectorLLRBT.cpp KD_Tree.cpp kNN.cpp

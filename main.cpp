@@ -61,7 +61,14 @@ int main(int argc, char**argv) {
     // get the tree
     KD_Tree tree = knnClassifier.tree;
     // test instance
-    std::vector<double> testFeatures = {1.3232202558909871, 3.172770177200133, 18.57605415623152, 0.22339666018454057, 81.15184706218832, 695.926406517461, 0.9139624956958795};
+    std::vector<double> testFeatures;
+    testFeatures.push_back(1.3232202558909871);
+    testFeatures.push_back(3.172770177200133);
+    testFeatures.push_back(18.57605415623152);
+    testFeatures.push_back(0.22339666018454057);
+    testFeatures.push_back(81.15184706218832);
+    testFeatures.push_back(695.926406517461);
+    testFeatures.push_back(0.9139624956958795);
     Point testPoint(testFeatures, "");
     // predict the label
     int predictedLabel = knnClassifier.predict(testPoint); // Expected value = 0

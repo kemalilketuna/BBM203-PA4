@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/mission_rescue",
-            "args": [],
+            "args": ["${workspaceFolder}/sampleIO/sectors.dat", "${workspaceFolder}/sampleIO/simple_planet_train.txt"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
