@@ -3,4 +3,5 @@
 # .vscode/
 *.zip
 *exe.stackdump
+mission_rescue.dSYM/
 ```
