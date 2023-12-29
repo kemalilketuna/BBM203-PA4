@@ -90,35 +90,11 @@ void SpaceSectorBST::insertSectorByCoordinates(int x, int y, int z) {
 }
 
 void SpaceSectorBST::deleteSector(const std::string& sector_code) {
-    // TODO: Delete the sector given by its sector_code from the binary tree.
+    Sector *current = findSector(sector_code);
 
-    Sector *current = root;
-
-    // if the node is not found, return
     if (current == nullptr) {
         return;
     }
-
-    // create stack
-    stack<Sector*> nodes;
-    if (current != nullptr) {
-        nodes.push(current);
-    }
-
-    while (!nodes.empty()) {
-        current = nodes.top();
-        nodes.pop();
-        if (current->sector_code == sector_code) {
-            break;
-        }
-        if (current->right != nullptr) {
-            nodes.push(current->right);
-        }
-        if (current->left != nullptr) {
-            nodes.push(current->left);
-        }
-    }
-
 
     // if the node is a leaf node, delete it
     if (current->left == nullptr && current->right == nullptr) {
@@ -218,4 +194,35 @@ std::vector<Sector*> SpaceSectorBST::getStellarPath(const std::string& sector_co
 void SpaceSectorBST::printStellarPath(const std::vector<Sector*>& path) {
     // TODO: Print the stellar path obtained from the getStellarPath() function 
     // to STDOUT in the given format.
+}
+
+Sector* SpaceSectorBST::findSector(const std::string& sector_code) {
+    Sector *current = root;
+
+    // if the node is not found, return
+    if (current == nullptr) {
+        return nullptr;
+    }
+
+    // create stack
+    stack<Sector*> nodes;
+    if (current != nullptr) {
+        nodes.push(current);
+    }
+
+    while (!nodes.empty()) {
+        current = nodes.top();
+        nodes.pop();
+        if (current->sector_code == sector_code) {
+            break;
+        }
+        if (current->right != nullptr) {
+            nodes.push(current->right);
+        }
+        if (current->left != nullptr) {
+            nodes.push(current->left);
+        }
+    }
+
+    return current;
 }
