@@ -93,6 +93,12 @@ void SpaceSectorBST::deleteSector(const std::string& sector_code) {
     // TODO: Delete the sector given by its sector_code from the binary tree.
 
     Sector *current = root;
+
+    // if the node is not found, return
+    if (current == nullptr) {
+        return;
+    }
+
     // create stack
     stack<Sector*> nodes;
     if (current != nullptr) {
@@ -113,10 +119,6 @@ void SpaceSectorBST::deleteSector(const std::string& sector_code) {
         }
     }
 
-    // if the node is not found, return
-    if (current == nullptr) {
-        return;
-    }
 
     // if the node is a leaf node, delete it
     if (current->left == nullptr && current->right == nullptr) {
@@ -165,15 +167,27 @@ void SpaceSectorBST::deleteSector(const std::string& sector_code) {
     current->z = successor->z;
     current->distance_from_earth = successor->distance_from_earth;
     current->sector_code = successor->sector_code;
-    if (successor->parent->left == successor) {
-        if (successor->right != nullptr) {
-            successor->parent->left = successor->right;
-            successor->right->parent = successor->parent;
-        } else {
+    // if the successor is a leaf node delete it
+    if (successor->left == nullptr && successor->right == nullptr) {
+        if (successor->parent->left == successor) {
             successor->parent->left = nullptr;
+        } else {
+            successor->parent->right = nullptr;
         }
-    } else {
-        successor->parent->right = nullptr;
+        delete successor;
+        return;
+    }
+    // if the successor has only one child, replace it with its child
+    if (successor->left == nullptr || successor->right == nullptr) {
+        Sector *child = successor->left == nullptr ? successor->right : successor->left;
+        if (successor->parent->left == successor) {
+            successor->parent->left = child;
+        } else {
+            successor->parent->right = child;
+        }
+        child->parent = successor->parent;
+        delete successor;
+        return;
     }
     delete successor;
 }
