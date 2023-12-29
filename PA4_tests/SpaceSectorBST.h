@@ -24,6 +24,7 @@ public:
     void printStellarPath(const std::vector<Sector*>& path);
 private:
     Sector *findSector(const std::string& sector_code);
+    void deleteSectorRecursive(Sector *current);
 };
 
 #endif // SPACESECTORBST_H

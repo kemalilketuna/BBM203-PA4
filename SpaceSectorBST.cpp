@@ -91,7 +91,10 @@ void SpaceSectorBST::insertSectorByCoordinates(int x, int y, int z) {
 
 void SpaceSectorBST::deleteSector(const std::string& sector_code) {
     Sector *current = findSector(sector_code);
+    deleteSectorRecursive(current);
+}
 
+void SpaceSectorBST::deleteSectorRecursive(Sector *current) {
     if (current == nullptr) {
         return;
     }
@@ -143,29 +146,8 @@ void SpaceSectorBST::deleteSector(const std::string& sector_code) {
     current->z = successor->z;
     current->distance_from_earth = successor->distance_from_earth;
     current->sector_code = successor->sector_code;
-    // if the successor is a leaf node delete it
-    if (successor->left == nullptr && successor->right == nullptr) {
-        if (successor->parent->left == successor) {
-            successor->parent->left = nullptr;
-        } else {
-            successor->parent->right = nullptr;
-        }
-        delete successor;
-        return;
-    }
-    // if the successor has only one child, replace it with its child
-    if (successor->right != nullptr) {
-        Sector *child = successor->right;
-        if (successor->parent->left == successor) {
-            successor->parent->left = child;
-        } else {
-            successor->parent->right = child;
-        }
-        child->parent = successor->parent;
-        delete successor;
-        return;
-    }
-    delete successor;
+
+    deleteSectorRecursive(successor);
 }
 
 void SpaceSectorBST::displaySectorsInOrder() {
@@ -214,7 +196,7 @@ Sector* SpaceSectorBST::findSector(const std::string& sector_code) {
         current = nodes.top();
         nodes.pop();
         if (current->sector_code == sector_code) {
-            break;
+            return current;
         }
         if (current->right != nullptr) {
             nodes.push(current->right);
@@ -224,5 +206,5 @@ Sector* SpaceSectorBST::findSector(const std::string& sector_code) {
         }
     }
 
-    return current;
+    return nullptr;
 }

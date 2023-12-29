@@ -73,6 +73,11 @@ double test_delete_bst() {
 
         if (expected_bst == bst) {
             score += 1;
+        }else{
+            cerr << "Failed test "<< endl;
+            cerr << "Expected: " << expected_bst << endl;
+            cerr << "Actual: " << bst << endl;
+            break;
         }
         delete_tree(expected_root);
     }

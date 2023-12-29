@@ -14,6 +14,19 @@
             "MIMode": "lldb",
             "preLaunchTask": "build",
         },
+        {
+            "name": "(lldb) tester",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/PA4_tests/Test",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/PA4_tests/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "build",
+        },
   
     ]
 }
