@@ -178,8 +178,8 @@ void SpaceSectorBST::deleteSector(const std::string& sector_code) {
         return;
     }
     // if the successor has only one child, replace it with its child
-    if (successor->left == nullptr || successor->right == nullptr) {
-        Sector *child = successor->left == nullptr ? successor->right : successor->left;
+    if (successor->right != nullptr) {
+        Sector *child = successor->right;
         if (successor->parent->left == successor) {
             successor->parent->left = child;
         } else {
