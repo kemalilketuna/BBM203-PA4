@@ -230,12 +230,41 @@ std::vector<Sector*> SpaceSectorBST::getStellarPath(const std::string& sector_co
     // TODO: Find the path from the Earth to the destination sector given by its
     // sector_code, and return a vector of pointers to the Sector nodes that are on
     // the path. Make sure that there are no duplicate Sector nodes in the path!
+
+    if (root == nullptr) {
+        return path;
+    }
+
+    Sector *current = root;
+    Sector *target = findSector(sector_code);
+    if (target == nullptr) {
+        return path;
+    }
+    
+    while (current != nullptr) {
+        path.push_back(current);
+        if (current->sector_code == sector_code) {
+            break;
+        }
+        if (*target < *current) {
+            current = current->left;
+        } else {
+            current = current->right;
+        }
+    }
+
     return path;
 }
 
 void SpaceSectorBST::printStellarPath(const std::vector<Sector*>& path) {
     // TODO: Print the stellar path obtained from the getStellarPath() function 
     // to STDOUT in the given format.
+    // cout << "Stellar path from Earth to Dr. Elara: " << path.at(0)->sector_code;
+    
+    // for (int i = 1; i < path.size(); i++) {
+    //     cout << "->" << path.at(i)->sector_code;
+    // }
+    // cout << endl;
 }
 
 Sector* SpaceSectorBST::findSector(const std::string& sector_code) {
