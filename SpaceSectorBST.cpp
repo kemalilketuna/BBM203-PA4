@@ -6,6 +6,35 @@ SpaceSectorBST::SpaceSectorBST() : root(nullptr) {}
 
 SpaceSectorBST::~SpaceSectorBST() {
     // Free any dynamically allocated memory in this class.
+    // dfs delete
+
+    if (root == nullptr) {
+        return;
+    }
+
+    Sector *current = root;
+    Sector *parent = nullptr;
+    while (current != nullptr) {
+        if (current->left != nullptr) {
+            current = current->left;
+        } else if (current->right != nullptr) {
+            current = current->right;
+        } else {
+            if(current->parent == nullptr) {
+                delete current;
+                current = nullptr;
+                return;
+            }
+            parent = current->parent;
+            if (parent->left == current) {
+                parent->left = nullptr;
+            } else {
+                parent->right = nullptr;
+            }
+            delete current;
+            current = parent;
+        }
+    }
 }
 
 void SpaceSectorBST::readSectorsFromFile(const std::string& filename) {
@@ -52,12 +81,14 @@ void SpaceSectorBST::insertSectorByCoordinates(int x, int y, int z) {
         if (*new_sector < *current) {
             if (current->left == nullptr) {
                 current->left = new_sector;
+                new_sector->parent = current;
                 return;
             }
             current = current->left;
         } else {
             if (current->right == nullptr) {
                 current->right = new_sector;
+                new_sector->parent = current;
                 return;
             }
             current = current->right;
