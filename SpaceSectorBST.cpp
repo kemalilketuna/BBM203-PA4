@@ -151,18 +151,78 @@ void SpaceSectorBST::deleteSectorRecursive(Sector *current) {
 }
 
 void SpaceSectorBST::displaySectorsInOrder() {
-    // TODO: Traverse the space sector BST map in-order and print the sectors 
-    // to STDOUT in the given format.
+    cout << "Space sectors inorder traversal: " << endl;
+
+    if (root == nullptr) {
+        return;
+    }
+
+    stack <Sector*> nodes;
+    Sector *current = root;
+
+    while (current != nullptr || !nodes.empty()) {
+        while (current != nullptr) {
+            nodes.push(current);
+            current = current->left;
+        }
+        current = nodes.top();
+        nodes.pop();
+        cout << current->sector_code << "\n";
+        current = current->right;
+    }
+    cout << endl;
 }
 
 void SpaceSectorBST::displaySectorsPreOrder() {
-    // TODO: Traverse the space sector BST map in pre-order traversal and print 
-    // the sectors to STDOUT in the given format.
+    cout << "Space sectors preorder traversal: " << endl;
+
+    if (root == nullptr) {
+        return;
+    }
+
+    stack <Sector*> nodes;
+    nodes.push(root);
+
+    while (!nodes.empty()) {
+        Sector *current = nodes.top();
+        nodes.pop();
+        cout << current->sector_code << "\n";
+        if (current->right != nullptr) {
+            nodes.push(current->right);
+        }
+        if (current->left != nullptr) {
+            nodes.push(current->left);
+        }
+    }
 }
 
 void SpaceSectorBST::displaySectorsPostOrder() {
-    // TODO: Traverse the space sector BST map in post-order traversal and print 
-    // the sectors to STDOUT in the given format.
+    cout << "Space sectors postorder traversal: " << endl;
+
+    if (root == nullptr) {
+        return;
+    }
+
+    stack <Sector*> nodes;
+    Sector *current = root;
+    Sector *last_visited = nullptr;
+
+    while (current != nullptr || !nodes.empty()) {
+        while (current != nullptr) {
+            nodes.push(current);
+            current = current->left;
+        }
+        current = nodes.top();
+        if (current->right == nullptr || current->right == last_visited) {
+            cout << current->sector_code << "\n";
+            nodes.pop();
+            last_visited = current;
+            current = nullptr;
+        } else {
+            current = current->right;
+        }
+    }
+    cout << endl;
 }
 
 std::vector<Sector*> SpaceSectorBST::getStellarPath(const std::string& sector_code) {
