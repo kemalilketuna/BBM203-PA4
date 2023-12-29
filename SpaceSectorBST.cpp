@@ -5,21 +5,23 @@ using namespace std;
 SpaceSectorBST::SpaceSectorBST() : root(nullptr) {}
 
 SpaceSectorBST::~SpaceSectorBST() {
-    // Free any dynamically allocated memory in this class.
-    // dfs delete
-
     if (root == nullptr) {
         return;
     }
 
     Sector *current = root;
     Sector *parent = nullptr;
+    // Delete all nodes using depth-first traversal
     while (current != nullptr) {
+        // dfs to the left child
         if (current->left != nullptr) {
             current = current->left;
-        } else if (current->right != nullptr) {
+        } 
+        // dfs to the right child
+        else if (current->right != nullptr) {
             current = current->right;
         } else {
+            // If current node is root node, delete it and return
             if(current->parent == nullptr) {
                 delete current;
                 current = nullptr;
@@ -38,23 +40,17 @@ SpaceSectorBST::~SpaceSectorBST() {
 }
 
 void SpaceSectorBST::readSectorsFromFile(const std::string& filename) {
-    // TODO: read the sectors from the input file and insert them into the BST sector map
-    // according to the given comparison critera based on the sector coordinates.
-
     ifstream infile(filename);
     if (!infile.is_open()) {
         cout << "Error: Cannot open file " << filename << endl;
         return;
     }
 
-    // X,Y,Z
-    // 0,0,0
-    // 10,20,30
-
     string line;
     getline(infile, line); // Skip the first line
     while (getline(infile, line)) {
         stringstream ss(line);
+        // take in the line and parse it
         string x, y, z;
         getline(ss, x, ',');
         getline(ss, y, ',');
@@ -64,9 +60,6 @@ void SpaceSectorBST::readSectorsFromFile(const std::string& filename) {
 }
 
 void SpaceSectorBST::insertSectorByCoordinates(int x, int y, int z) {
-    // Instantiate and insert a new sector into the space sector BST map according to the 
-    // coordinates-based comparison criteria.
-
     Sector *new_sector = new Sector(x, y, z);
     if (root == nullptr) {
         root = new_sector;
