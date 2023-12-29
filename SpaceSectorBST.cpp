@@ -1,5 +1,5 @@
 #include "SpaceSectorBST.h"
-
+#include <stack>
 using namespace std;
 
 SpaceSectorBST::SpaceSectorBST() : root(nullptr) {}
@@ -90,7 +90,92 @@ void SpaceSectorBST::insertSectorByCoordinates(int x, int y, int z) {
 }
 
 void SpaceSectorBST::deleteSector(const std::string& sector_code) {
-    // TODO: Delete the sector given by its sector_code from the BST.
+    // TODO: Delete the sector given by its sector_code from the binary tree.
+
+    Sector *current = root;
+    // create stack
+    stack<Sector*> nodes;
+    if (current != nullptr) {
+        nodes.push(current);
+    }
+
+    while (!nodes.empty()) {
+        current = nodes.top();
+        nodes.pop();
+        if (current->sector_code == sector_code) {
+            break;
+        }
+        if (current->right != nullptr) {
+            nodes.push(current->right);
+        }
+        if (current->left != nullptr) {
+            nodes.push(current->left);
+        }
+    }
+
+    // if the node is not found, return
+    if (current == nullptr) {
+        return;
+    }
+
+    // if the node is a leaf node, delete it
+    if (current->left == nullptr && current->right == nullptr) {
+        if (current->parent == nullptr) {
+            root = nullptr;
+            delete current;
+            return;
+        }
+        Sector *parent = current->parent;
+        if (parent->left == current) {
+            parent->left = nullptr;
+        } else {
+            parent->right = nullptr;
+        }
+        delete current;
+        return;
+    }
+
+    // if the node has only one child, replace it with its child
+    if (current->left == nullptr || current->right == nullptr) {
+        Sector *child = current->left == nullptr ? current->right : current->left;
+        if (current->parent == nullptr) {
+            root = child;
+            child->parent = nullptr;
+            delete current;
+            return;
+        }
+        Sector *parent = current->parent;
+        if (parent->left == current) {
+            parent->left = child;
+        } else {
+            parent->right = child;
+        }
+        child->parent = parent;
+        delete current;
+        return;
+    }
+
+    // if the node has two children, replace it with its successor
+    Sector *successor = current->right;
+    while (successor->left != nullptr) {
+        successor = successor->left;
+    }
+    current->x = successor->x;
+    current->y = successor->y;
+    current->z = successor->z;
+    current->distance_from_earth = successor->distance_from_earth;
+    current->sector_code = successor->sector_code;
+    if (successor->parent->left == successor) {
+        if (successor->right != nullptr) {
+            successor->parent->left = successor->right;
+            successor->right->parent = successor->parent;
+        } else {
+            successor->parent->left = nullptr;
+        }
+    } else {
+        successor->parent->right = nullptr;
+    }
+    delete successor;
 }
 
 void SpaceSectorBST::displaySectorsInOrder() {
