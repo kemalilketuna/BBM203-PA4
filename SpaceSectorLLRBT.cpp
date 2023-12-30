@@ -1,11 +1,30 @@
 #include "SpaceSectorLLRBT.h"
 #include <stack>
+#include <queue>
 using namespace std;
 
 SpaceSectorLLRBT::SpaceSectorLLRBT() : root(nullptr) {}
 
 SpaceSectorLLRBT::~SpaceSectorLLRBT() {
-    // TODO: Free any dynamically allocated memory in this class.
+    if (root == nullptr) {
+        return;
+    }
+
+    Sector *current = root;
+    Sector *parent = nullptr;
+    queue<Sector*> nodes;
+    nodes.push(current);
+    while (!nodes.empty()) {
+        current = nodes.front();
+        nodes.pop();
+        if (current->left != nullptr) {
+            nodes.push(current->left);
+        }
+        if (current->right != nullptr) {
+            nodes.push(current->right);
+        }
+        delete current;
+    }
 }
 
 void SpaceSectorLLRBT::readSectorsFromFile(const std::string& filename) {
