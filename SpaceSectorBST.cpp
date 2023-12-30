@@ -42,7 +42,6 @@ SpaceSectorBST::~SpaceSectorBST() {
 void SpaceSectorBST::readSectorsFromFile(const std::string& filename) {
     ifstream infile(filename);
     if (!infile.is_open()) {
-        cout << "Error: Cannot open file " << filename << endl;
         return;
     }
 
@@ -151,7 +150,7 @@ void SpaceSectorBST::deleteSectorRecursive(Sector *current) {
 }
 
 void SpaceSectorBST::displaySectorsInOrder() {
-    cout << "Space sectors inorder traversal: " << endl;
+    cout << "Space sectors inorder traversal:" << endl;
 
     if (root == nullptr) {
         return;
@@ -174,7 +173,7 @@ void SpaceSectorBST::displaySectorsInOrder() {
 }
 
 void SpaceSectorBST::displaySectorsPreOrder() {
-    cout << "Space sectors preorder traversal: " << endl;
+    cout << "Space sectors preorder traversal:" << endl;
 
     if (root == nullptr) {
         return;
@@ -197,7 +196,7 @@ void SpaceSectorBST::displaySectorsPreOrder() {
 }
 
 void SpaceSectorBST::displaySectorsPostOrder() {
-    cout << "Space sectors postorder traversal: " << endl;
+    cout << "Space sectors postorder traversal:" << endl;
 
     if (root == nullptr) {
         return;

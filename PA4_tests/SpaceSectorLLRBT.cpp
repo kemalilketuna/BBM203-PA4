@@ -31,7 +31,6 @@ SpaceSectorLLRBT::~SpaceSectorLLRBT() {
 void SpaceSectorLLRBT::readSectorsFromFile(const std::string& filename) {
     ifstream infile(filename);
     if (!infile.is_open()) {
-        cout << "Error: Cannot open file " << filename << endl;
         return;
     }
 
@@ -109,7 +108,7 @@ void SpaceSectorLLRBT::insertSectorByCoordinates(int x, int y, int z) {
 }
 
 void SpaceSectorLLRBT::displaySectorsInOrder() {
-    cout << "Space sectors inorder traversal: " << endl;
+    cout << "Space sectors inorder traversal:" << endl;
 
     if (root == nullptr) {
         return;
@@ -132,7 +131,7 @@ void SpaceSectorLLRBT::displaySectorsInOrder() {
 }
 
 void SpaceSectorLLRBT::displaySectorsPreOrder() {
-    cout << "Space sectors preorder traversal: " << endl;
+    cout << "Space sectors preorder traversal:" << endl;
 
     if (root == nullptr) {
         return;
@@ -156,7 +155,7 @@ void SpaceSectorLLRBT::displaySectorsPreOrder() {
 }
 
 void SpaceSectorLLRBT::displaySectorsPostOrder() {
-    cout << "Space sectors postorder traversal: " << endl;
+    cout << "Space sectors postorder traversal:" << endl;
 
     if (root == nullptr) {
         return;
