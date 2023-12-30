@@ -1,6 +1,7 @@
 #include "SpaceSectorLLRBT.h"
 #include <stack>
 #include <queue>
+#include <algorithm>
 using namespace std;
 
 SpaceSectorLLRBT::SpaceSectorLLRBT() : root(nullptr) {}
@@ -189,6 +190,10 @@ std::vector<Sector*> SpaceSectorLLRBT::getStellarPath(const std::string& sector_
     vector<Sector*> target_path = getStellarPathMinor(sector_code);
     vector<Sector*> earth_path = getStellarPathMinor("0SSS");
 
+    if (target_path.empty() || earth_path.empty()) {
+        return path;
+    }
+
     // Find same sector count in both paths
     int same_sector_count = 0;
     while (same_sector_count < target_path.size() && same_sector_count < earth_path.size()) {
@@ -252,6 +257,11 @@ std::vector<Sector*> SpaceSectorLLRBT::getStellarPathMinor(const std::string& se
 }
 
 void SpaceSectorLLRBT::printStellarPath(const std::vector<Sector*>& path) {
+    if (path.empty()) {
+        cout << "A path to Dr. Elara could not be found." << endl;
+        return;
+    }
+
     // TODO: check this later
     cout << "The stellar path to Dr. Elara: ";
 

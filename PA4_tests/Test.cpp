@@ -211,8 +211,12 @@ double test_llrbt_pathfinding() {
 
             if (expected_json == path_json) {
                 score += 1;
-            }
-
+            }else{
+                cerr << "Failed test "<< endl;
+                cerr << "Expected: " << expected_json << endl;
+                cerr << "Actual: " << path_json << endl;
+                break;
+                }
             for (int z = 0; z < expected_path.size(); z++) {
                 delete expected_path[z];
             }
