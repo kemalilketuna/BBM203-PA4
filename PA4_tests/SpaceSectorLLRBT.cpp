@@ -83,9 +83,6 @@ Sector* SpaceSectorLLRBT::insert(Sector *sector, Sector *node) {
 }
 
 void SpaceSectorLLRBT::insertSectorByCoordinates(int x, int y, int z) {
-    // TODO: Instantiate and insert a new sector into the space sector LLRBT map 
-    // according to the coordinates-based comparison criteria.
-
     Sector *new_sector = new Sector(x, y, z);
     root = insert(root, new_sector);
     root->color = false;
@@ -108,7 +105,7 @@ void SpaceSectorLLRBT::displaySectorsInOrder() {
         }
         current = nodes.top();
         nodes.pop();
-        cout << current->sector_code << "\n";
+        cout << (current->color? "RED" : "BLACK") << " sector: " << current->sector_code << "\n";
         current = current->right;
     }
     cout << endl;
@@ -127,7 +124,7 @@ void SpaceSectorLLRBT::displaySectorsPreOrder() {
     while (!nodes.empty()) {
         Sector *current = nodes.top();
         nodes.pop();
-        cout << current->sector_code << "\n";
+        cout << (current->color? "RED" : "BLACK") << " sector: " << current->sector_code << "\n";
         if (current->right != nullptr) {
             nodes.push(current->right);
         }
@@ -135,6 +132,7 @@ void SpaceSectorLLRBT::displaySectorsPreOrder() {
             nodes.push(current->left);
         }
     }
+    cout << endl;
 }
 
 void SpaceSectorLLRBT::displaySectorsPostOrder() {
@@ -155,7 +153,7 @@ void SpaceSectorLLRBT::displaySectorsPostOrder() {
         }
         current = nodes.top();
         if (current->right == nullptr || current->right == last_visited) {
-            cout << current->sector_code << "\n";
+            cout << (current->color? "RED" : "BLACK") << " sector: " << current->sector_code << "\n";
             nodes.pop();
             last_visited = current;
             current = nullptr;
