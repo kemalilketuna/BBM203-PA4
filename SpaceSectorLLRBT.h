@@ -26,6 +26,7 @@ private:
     Sector *rotateRight(Sector *node);
     void flipColors(Sector *node);
     Sector *insert(Sector *sector, Sector *node);
+    std::vector<Sector*> getStellarPathMinor(const std::string& sector_code);
 };
 
 #endif // SPACESECTORLLRBT_H

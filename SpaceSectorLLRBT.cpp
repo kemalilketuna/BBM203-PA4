@@ -1,6 +1,7 @@
 #include "SpaceSectorLLRBT.h"
 #include <stack>
 #include <queue>
+#include <algorithm>
 using namespace std;
 
 SpaceSectorLLRBT::SpaceSectorLLRBT() : root(nullptr) {}
@@ -186,16 +187,56 @@ void SpaceSectorLLRBT::displaySectorsPostOrder() {
 std::vector<Sector*> SpaceSectorLLRBT::getStellarPath(const std::string& sector_code) {
     std::vector<Sector*> path;
 
-    if (root == nullptr) {
+    vector<Sector*> target_path = getStellarPathMinor(sector_code);
+    vector<Sector*> earth_path = getStellarPathMinor("0SSS");
+
+    // Find same sector count in both paths
+    int same_sector_count = 0;
+    while (same_sector_count < target_path.size() && same_sector_count < earth_path.size()) {
+        if (target_path[same_sector_count]->sector_code != earth_path[same_sector_count]->sector_code) {
+            break;
+        }
+        same_sector_count++;
+    }
+
+    // Remove the common sectors from earth path
+    for (int i = 0; i < same_sector_count; i++) {
+        earth_path.erase(earth_path.begin());
+    }
+
+    // Reverse the earth path
+    reverse(earth_path.begin(), earth_path.end());
+
+    // Remove the common sectors from target path and minus 1 from the count
+    for (int i = 0; i < same_sector_count - 1; i++) {
+        target_path.erase(target_path.begin());
+    }
+
+    // Combine the two paths
+    path.insert(path.end(), earth_path.begin(), earth_path.end());
+    path.insert(path.end(), target_path.begin(), target_path.end());
+
+    return path;
+}
+
+std::vector<Sector*> SpaceSectorLLRBT::getStellarPathMinor(const std::string& sector_code) {
+    std::vector<Sector*> path;
+
+    Sector *current = root;
+    if (current == nullptr) {
         return path;
     }
 
-    Sector *current = root;
+    // Find the target sector
     Sector *target = findSector(sector_code);
     if (target == nullptr) {
         return path;
     }
-    
+
+    // Traverse the tree until we find the target sector or we reach a null node.
+    stack<Sector*> nodes;
+    nodes.push(current);
+
     while (current != nullptr) {
         path.push_back(current);
         if (current->sector_code == sector_code) {
