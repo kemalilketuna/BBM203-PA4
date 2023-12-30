@@ -276,9 +276,7 @@ Sector* SpaceSectorBST::findSector(const std::string& sector_code) {
 
     // create stack
     stack<Sector*> nodes;
-    if (current != nullptr) {
-        nodes.push(current);
-    }
+    nodes.push(current);
 
     while (!nodes.empty()) {
         current = nodes.top();
@@ -293,6 +291,5 @@ Sector* SpaceSectorBST::findSector(const std::string& sector_code) {
             nodes.push(current->left);
         }
     }
-
     return nullptr;
 }

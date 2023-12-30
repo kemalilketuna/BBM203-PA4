@@ -254,8 +254,7 @@ std::vector<Sector*> SpaceSectorBST::getStellarPath(const std::string& sector_co
 }
 
 void SpaceSectorBST::printStellarPath(const std::vector<Sector*>& path) {
-    // TODO: Print the stellar path obtained from the getStellarPath() function 
-    // to STDOUT in the given format.
+    // TODO: check this later
     cout << "The stellar path to Dr. Elara: ";
 
     for (int i = 0; i < path.size(); i++) {
@@ -277,9 +276,7 @@ Sector* SpaceSectorBST::findSector(const std::string& sector_code) {
 
     // create stack
     stack<Sector*> nodes;
-    if (current != nullptr) {
-        nodes.push(current);
-    }
+    nodes.push(current);
 
     while (!nodes.empty()) {
         current = nodes.top();
@@ -294,6 +291,5 @@ Sector* SpaceSectorBST::findSector(const std::string& sector_code) {
             nodes.push(current->left);
         }
     }
-
     return nullptr;
 }

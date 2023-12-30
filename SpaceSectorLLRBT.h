@@ -19,6 +19,13 @@ public:
     void displaySectorsPostOrder();
     std::vector<Sector*> getStellarPath(const std::string& sector_code);
     void printStellarPath(const std::vector<Sector*>& path);
+private:
+    Sector *findSector(const std::string& sector_code);
+    bool isRed(Sector *node);
+    Sector *rotateLeft(Sector *node);
+    Sector *rotateRight(Sector *node);
+    void flipColors(Sector *node);
+    Sector *insert(Sector *sector, Sector *node);
 };
 
 #endif // SPACESECTORLLRBT_H
