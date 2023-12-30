@@ -253,7 +253,11 @@ std::vector<Sector*> SpaceSectorBST::getStellarPath(const std::string& sector_co
 }
 
 void SpaceSectorBST::printStellarPath(const std::vector<Sector*>& path) {
-    // TODO: check this later
+    if (path.empty()) {
+        cout << "A path to Dr. Elara could not be found." << endl;
+        return;
+    }
+
     cout << "The stellar path to Dr. Elara: ";
 
     for (int i = 0; i < path.size(); i++) {

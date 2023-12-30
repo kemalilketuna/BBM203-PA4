@@ -258,7 +258,6 @@ void run_sample_main(int i) {
         sector_map_LLRBT.printStellarPath(stellar_path_2);
         cout << endl;
     }
-
 }
 
 void test_output() {
